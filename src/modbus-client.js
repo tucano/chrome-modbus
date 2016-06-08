@@ -31,7 +31,7 @@ var ModbusRequest = function (id, length) {
     this.setTID(id)
         .setPID(0)
         .setLength(length - 6)
-        .setUID(255);
+        .setUID(1);
 
 };
 
@@ -655,6 +655,11 @@ ModbusClient.method('readHoldingRegisters', function (start, count) {
 
     this._sendPacket(request);
 
+    console.log("CAZZO HEADER:" + request.header + " FIGA: " + request.packet);
+    console.log("TID: " + request.header.getUint16(0));
+    console.log("PID: " + request.header.getUint16(2));
+    console.log("LENGTH: " + request.header.getUint16(4));
+    console.log("UID: " + request.header.getUint8(6));
     return request.getPromise();
 
 });
